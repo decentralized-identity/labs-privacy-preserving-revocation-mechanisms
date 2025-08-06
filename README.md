@@ -24,7 +24,7 @@ A Systematization of Knowledge (SoK) (and reference implementation) of privacy-f
 
 ## Documentation
 
-* [Analysis Report](docs/privacy-preserving-revocation-report.md)
+* [Analysis Report](docs/report.md)
 
 ## Contributing
 
