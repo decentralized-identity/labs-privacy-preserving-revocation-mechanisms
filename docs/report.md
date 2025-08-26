@@ -6,6 +6,17 @@
 This report provides a detailed technical analysis of prominent revocation schemes for Verifiable Credentials (VCs). We examine each scheme’s specifications, implementations, and privacy properties. The primary objective is to delineate each scheme’s pros and cons, and identify core use cases and recommend the most suitable revocation scheme for each.
 
 ---
+## 0. Linkablity
+One of the major privacy risks of verifiable credentials (VCs) is known as linkability. Linkability refers to the possibility of tracking individuals by collating data from their use of digital credentials. This risk arises when traceable digital signatures or identifiers are reused, allowing different parties to correlate multiple interactions with the same individual, thereby compromising privacy. Such linkability can create surveillance potential across society, whether by private companies, state actors, or even foreign adversaries.
+
+Linkability can occur at different layers. For example, at the credential level, the chosen revocation method can contribute to this risk.
+
+![Linkability in Verifiable Credentials](images/linkabillity.png)
+Typically, we can distinguish two main types of linkability:
+1. RP–RP linkability: Verifiers share or match data to link different interactions back to the same individual.
+2. AP–RP linkability: An issuer and a verifier collude to link different interactions back to the same individual.
+
+To achieve true unlinkability, both the signature scheme and the revocation method must support it. 
 
 ## 1. The Need for Revocation in Verifiable Credentials
 
