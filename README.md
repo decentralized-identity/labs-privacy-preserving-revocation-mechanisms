@@ -35,4 +35,9 @@ See [CONTRIBUTING.md](/CONTRIBUTING.md).
 * Kai Otsuki ([GitHub](https://github.com/Dtitkaio))
 * Ken Watanabe ([GitHub](https://github.com/dorakemon))
 
+## Contributors
+
+* Vivian Plasencia ([Github](https://github.com/vplasencia)) from Ethereum Foundation
+
+
 ---
