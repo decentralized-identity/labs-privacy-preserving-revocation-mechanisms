@@ -1,8 +1,6 @@
 
 # [WIP] An Analysis of Revocation Schemes for Verifiable Credentials
 
-## Executive Summary
-
 This report provides a detailed technical analysis of prominent revocation schemes for Verifiable Credentials (VCs). We examine each scheme’s specifications, implementations, and privacy properties. The primary objective is to delineate each scheme’s pros and cons, and identify core use cases and recommend the most suitable revocation scheme for each.
 
 ## Reading Guide and Agenda
