@@ -187,7 +187,7 @@ This technique uses zero-knowledge proofs, such as Bulletproofs, to prove that a
 
 ### Merkle Tree-based
 
-This method uses a Merkle tree to maintain either a list of valid credentials or a list of revoked credentials. A proof of membership in the valid set, or non-membership in the revoked set, is provided through a Merkle path, offering an efficient and verifiable data structure. The Incremental Merkle Tree (IMT), is commonly used for membership proofs, with [LeanIMT](https://zkkit.org/leanimt-paper.pdf) representing an optimized implementation. For non-membership proofs, the [Sparse Merkle Tree (SMT)](https://docs.iden3.io/publications/pdfs/Merkle-Tree.pdf), is typically employed.
+This method uses a Merkle tree to maintain either a list of valid credentials or a list of revoked credentials. A proof of membership in the valid set, or non-membership in the revoked set, is provided through a Merkle path, offering an efficient and verifiable data structure. The Incremental Merkle Tree (IMT) is commonly used for membership proofs, with [LeanIMT](https://zkkit.org/leanimt-paper.pdf) representing an optimized implementation. For non-membership proofs, the [Sparse Merkle Tree (SMT)](https://docs.iden3.io/publications/pdfs/Merkle-Tree.pdf) is typically employed.
 
 ### Short-Lived (Ephemeral) Credentials (Non-Authority-Based)
 
@@ -533,7 +533,7 @@ In conclusion, the **VB accumulator demonstrates superior practical performance*
 
 ## Comparative Analysis of Merkle Tree-based Schemes
 
-This section compares two prominent Merkle tree based schemes, LeanIMT and SMT. Merkle tree revocation approaches differ depending on whether they prove membership in a list of valid credentials or non-membership in a list of revoked credentials. LeanIMT is optimized for efficient membership proofs, whereas SMT enables efficient non-membership proofs at the cost of higher constraint complexity.
+This section compares two prominent Merkle tree-based schemes, LeanIMT and SMT. Merkle tree revocation approaches differ depending on whether they prove membership in a list of valid credentials or non-membership in a list of revoked credentials. LeanIMT is optimized for efficient membership proofs, whereas SMT enables efficient non-membership proofs at the cost of higher constraint complexity.
 Both approaches are typically implemented with Circom + SnarkJS, most commonly with Groth16 as the proving system. These Merkle proofs are also compatible with other proving systems such as Plonk, Fflonk, and UltraHonk, which ensure fast client-side proof generation and low-cost smart contract verification. Since Groth16 is commonly used, these methods require a trusted setup per circuit.
 
 
@@ -545,13 +545,13 @@ Both approaches are typically implemented with Circom + SnarkJS, most commonly w
 
 #### Operations Overview
 
-* **Insert:** Adding a new credential to the merkle tree structure.
-* **Generate Proof:** Creating merkle proofs off-chain that credential holders can use to demonstrate membership (LeanIMT) or non-membership (SMT) in revocation lists.
-* **Verify Proof:** Validating merkle proofs, performed either on-chain by smart contracts or off-chain by other verifying parties.
+* **Insert:** Adding a new credential to the Merkle tree structure.
+* **Generate Proof:** Creating Merkle proofs off-chain that credential holders can use to demonstrate membership (LeanIMT) or non-membership (SMT) in revocation lists.
+* **Verify Proof:** Validating Merkle proofs, performed either on-chain by smart contracts or off-chain by other verifying parties.
 
 LeanIMT and SMT implementations were benchmarked across Circom circuits, browser environments, Node.js environments, and Solidity smart contracts to evaluate their overall efficiency and practicality.
 
-These benchmarks are designed to reflect how each data structure would typically be used in real world revocation systems.
+These benchmarks are designed to reflect how each data structure would typically be used in real-world revocation systems.
 
 The benchmarks shown here focus on the most representative measurements for each environment:
 - Circuits: non-linear constraints and Zero-Knowledge (ZK) artifact sizes.
@@ -594,7 +594,7 @@ Benchmark code is available at: https://github.com/vplasencia/vc-revocation-benc
 | LeanIMT   | $O(n)$     | $n$ = number of leaves           |
 | SMT       | $O(n)$     | $n$ = number of non-empty leaves |
 
-### Benchmark Results: LeanIMT v.s. SMT
+### Benchmark Results: LeanIMT vs SMT
 
 ### Circuit Benchmarks
 
