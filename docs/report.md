@@ -602,9 +602,9 @@ Benchmark code is available at: https://github.com/vplasencia/vc-revocation-benc
 
 Fewer constraints indicate a more efficient circuit.
 
-![LeanIMT vs SMT: Number of Constraints Across Tree Depth](images/merkle_tree/constraints_absolute.webp)
+![LeanIMT vs SMT: Number of Constraints Across Tree Depth](images/merkle_tree/constraints_absolute.png)
 
-![Relative Efficiency: Ratio of Constraints](images/merkle_tree/constraints_ratio.webp)
+![Relative Efficiency: Ratio of Constraints](images/merkle_tree/constraints_ratio.png)
 
 ### Proof Size
 
@@ -644,7 +644,7 @@ Constant at ~2.9 kB for both.
 | 100 000   | 11.9 s             |
 | 1 000 000 | 1 m 59.9 s         |
 
-![LeanIMT vs SMT: Recreate Tree Browser](images/merkle_tree/recreate_tree_browser.webp)
+![LeanIMT vs SMT: Recreate Tree Browser](images/merkle_tree/recreate_tree_browser.png)
 
 ### 128 - 2048 credentials
 
@@ -659,7 +659,7 @@ Constant at ~2.9 kB for both.
 
 ### Node.js Benchmarks
 
-![LeanIMT vs SMT: Insert Function Node.js](images/merkle_tree/insert_node.webp)
+![LeanIMT vs SMT: Insert Function Node.js](images/merkle_tree/insert_node.png)
 
 - ZK Proof verification is constant at roughly 9 ms across all depths.
 
