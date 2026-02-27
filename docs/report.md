@@ -187,7 +187,7 @@ This technique uses zero-knowledge proofs, such as Bulletproofs, to prove that a
 
 ### Merkle Tree-based
 
-This method uses a Merkle Tree to maintain the list of revoked credentials. A proof of revocation (or non-revocation) is provided via a Merkle Path, offering an efficient and verifiable data structure. The Incremental Merkle Tree (IMT) is commonly used for membership proofs. This data structure is used by projects such as [Semaphore](https://semaphore.pse.dev/) and [World](https://world.org/). There is an optimized implementation of an IMT called [LeanIMT](https://zkkit.org/leanimt-paper.pdf). For non-membership proofs, where users prove that their credential is not included in a list of revoked credentials, the [Sparse Merkle Tree (SMT)](https://docs.iden3.io/publications/pdfs/Merkle-Tree.pdf) is commonly used. [Privado.iD](https://www.privado.id/) is an example of a project using this data structure.
+This method uses a Merkle tree to maintain either a list of valid credentials or a list of revoked credentials. A proof of membership in the valid set, or non-membership in the revoked set, is provided through a Merkle path, offering an efficient and verifiable data structure. The Incremental Merkle Tree (IMT), is commonly used for membership proofs, with [LeanIMT](https://zkkit.org/leanimt-paper.pdf) representing an optimized implementation. For non-membership proofs, the [Sparse Merkle Tree (SMT)](https://docs.iden3.io/publications/pdfs/Merkle-Tree.pdf), is typically employed.
 
 ### Short-Lived (Ephemeral) Credentials (Non-Authority-Based)
 
@@ -533,21 +533,31 @@ In conclusion, the **VB accumulator demonstrates superior practical performance*
 
 ## Comparative Analysis of Merkle Tree-based Schemes
 
-This section focuses on a comparison between two prominent Merkle tree-based schemes - LeanIMT and SMT. Merkle tree–based revocation schemes diverge based on whether they prove membership (valid credentials) or non-membership (revoked credentials). LeanIMT optimizes membership proofs, while SMT enables efficient non-membership proofs at the cost of higher constraint complexity.
-Both approaches are usually implemented with Circom + SnarkJS, using Groth16 as the proving system where these proofs are also compatible with other proving systems such as Plonk, Fflonk, and UltraHonk, which ensures fast client-side generation and low-cost smart contract verification. Since Groth16 is commonly used, these methods require a trusted setup per circuit. 
+This section compares two prominent Merkle tree based schemes, LeanIMT and SMT. Merkle tree revocation approaches differ depending on whether they prove membership in a list of valid credentials or non-membership in a list of revoked credentials. LeanIMT is optimized for efficient membership proofs, whereas SMT enables efficient non-membership proofs at the cost of higher constraint complexity.
+Both approaches are typically implemented with Circom + SnarkJS, most commonly with Groth16 as the proving system. These Merkle proofs are also compatible with other proving systems such as Plonk, Fflonk, and UltraHonk, which ensure fast client-side proof generation and low-cost smart contract verification. Since Groth16 is commonly used, these methods require a trusted setup per circuit.
+
 
 ### Comparison Criteria
 
-* **Computational Performance:** The latency and throughput of tree operations including insert, update, proof generation, and proof verification.
+* **Computational Performance:** The latency and throughput of tree operations including insert, proof generation, and proof verification.
 * **Data Size:** The size of cryptographic proofs and storage requirements for the tree structure.
 * **Constraint Efficiency:** The number of non-linear constraints required in zero-knowledge circuits, affecting proving time and verification costs.
 
 #### Operations Overview
 
 * **Insert:** Adding a new credential to the merkle tree structure.
-* **Update:** Modifying the tree by adding, removing, or changing credential entries.
 * **Generate Proof:** Creating merkle proofs off-chain that credential holders can use to demonstrate membership (LeanIMT) or non-membership (SMT) in revocation lists.
 * **Verify Proof:** Validating merkle proofs, performed either on-chain by smart contracts or off-chain by other verifying parties.
+
+LeanIMT and SMT implementations were benchmarked across Circom circuits, browser environments, Node.js environments, and Solidity smart contracts to evaluate their overall efficiency and practicality.
+
+These benchmarks are designed to reflect how each data structure would typically be used in real world revocation systems.
+
+The benchmarks shown here focus on the most representative measurements for each environment:
+- Circuits: non-linear constraints and Zero-Knowledge (ZK) artifact sizes.
+- Browser: tree recreation, Merkle proof generation, and ZK proof generation.
+- Node.js: tree insertions and ZK proof verification.
+- Smart contracts: tree insertions, ZK proof verification, and deployment costs.
 
 ### Benchmark Environment
 
@@ -566,53 +576,117 @@ Benchmark code is available at: https://github.com/vplasencia/vc-revocation-benc
 
 ### Theoretical Evaluation
 
-| Category | LeanIMT | SMT |
-| :----------------- | :------------- | :------------- |
-| **Time Complexitiy**  | O(log n)[^operation]        | TBW       |
-| **Space Complexitiy** | O(n)        | TBW      |
+### Time Complexity
 
-In this table, n is the number of leaves in the Merkle tree.
 
-[^operation] The time complexity of Insert, Update, Generate Merkle Proof and Verify Merkle Proof.
+| Operation             | LeanIMT                                                                | SMT                                      |
+| --------------------- | ---------------------------------------------------------------------- | ---------------------------------------- |
+| Notation              | n = number of leaves                                                   | n = maximum supported leaves             |
+| Insert                | $O(\log n)$                                                            | $O(\log n)$                              |
+| Generate Merkle Proof | $O(\log n)$                                                            | $O(\log n)$                              |
+| Verify Merkle Proof   | $O(\log n)$                                                            | $O(\log n)$                              |
+| Search                | $O(n)$ - requires scanning all leaves <br> $O(1)$ - if index is cached | $O(\log n)$ - guided traversal using key |
+
+### Space Complexity
+
+| Structure | Complexity | Notation                         |
+| --------- | ---------- | -------------------------------- |
+| LeanIMT   | $O(n)$     | $n$ = number of leaves           |
+| SMT       | $O(n)$     | $n$ = number of non-empty leaves |
 
 ### Benchmark Results: LeanIMT v.s. SMT
 
-#### Performance Comparison Between LeanIMT and SMT
+### Circuit Benchmarks
 
-| Operation | LeanIMT Latency (ns) | SMT Latency (ns) | LeanIMT Throughput (ops/s) | SMT Throughput (ops/s) | Performance Advantage |
-|-----------|---------------------|------------------|---------------------------|------------------------|----------------------|
-| **Insert** | 270,917 ± 1.59% | 2,297,386 ± 11.42% | 3,710 ± 1.27% | 475 ± 3.31% | LeanIMT 8.5x faster |
-| **Update** | 547,897 ± 1.72% | 2,075,322 ± 5.41% | 1,836 ± 1.38% | 498 ± 2.57% | LeanIMT 3.8x faster |
-| **Generate Proof** | 159.57 ± 33.66% | 52,023 ± 16.39% | 7,583,898 ± 2.84% | 21,040 ± 2.86% | LeanIMT 326x faster |
-| **Verify Proof** | 553,753 ± 1.64% | 996,201 ± 5.94% | 1,817 ± 1.52% | 1,041 ± 2.55% | LeanIMT 1.8x faster |
+### Number of Non-linear Constraints
 
-#### Data Size Comparison Between LeanIMT and SMT
-| Tree Implementation | Proof Size (bytes) | Proof Size (KB on disk) | Storage Efficiency |
-|---------------------|-------------------|------------------------|-------------------|
-| **LeanIMT** | 807 | 4 | Optimized |
-| **SMT** | 804 | 4 | Standard |
+Fewer constraints indicate a more efficient circuit.
 
-**Note**: Data based on tree depth 10. Both implementations show nearly identical proof sizes with minimal difference.
+![LeanIMT vs SMT: Number of Constraints Across Tree Depth](images/merkle_tree/constraints_absolute.webp)
 
-#### Number of Non-linear Constraints
-Constraints are mathematical equations or rules that must be satisfied in cryptographic computations, with non-linear constraints being more complex than simple linear equations. Fewer constraints are preferable because they result in faster proving and verification times, reduced computational overhead, and lower memory requirements. In zero-knowledge proof systems, minimizing constraints leads to smaller proof sizes, cheaper transaction costs, and improved scalability. Additionally, systems with fewer constraints are easier to debug, optimize, and maintain, while also reducing potential security vulnerabilities.
+![Relative Efficiency: Ratio of Constraints](images/merkle_tree/constraints_ratio.webp)
 
-![# of Constraints Across Tree Depth](images/merkle_tree/IMT_SMT_num_of_constraints.png)
+### Proof Size
 
-![Relative Efficiency](images/merkle_tree/IMT_SMT_relative_efficiency.png)
+Groth16 Proof Size is always fixed, independent of circuit size: ~ 805 bytes (in JSON format).
 
+### ZK Artifact Size
+
+#### WASM File Size
+- SMT ≈ 2.2-2.3 MB
+- LeanIMT ≈ 1.8 MB
+
+#### ZKEY File Size
+From tree depth 2 to 32:
+ 
+- SMT: grows from 1.4 MB to 5.9 MB.
+- LeanIMT: grows from 280 kB to 4.4 MB.
+
+#### Verification Key JSON File Size
+Constant at ~2.9 kB for both.
+
+### Browser Benchmarks
+
+### Recreate Tree
+
+| Members | SMT Time | LeanIMT Time |
+| ------- | -------- | ------------ |
+| 128     | 232.3 ms | 17.6 ms      |
+| 512     | 1 s      | 78.7 ms      |
+| 1024    | 2.1 s    | 139.2 ms     |
+| 2048    | 4.6 s    | 273.0 ms     |
+
+### LeanIMT Performance
+
+| Members   | Recreate Tree Time |
+| --------- | ------------------ |
+| 10 000    | 1.2 s              |
+| 100 000   | 11.9 s             |
+| 1 000 000 | 1 m 59.9 s         |
+
+![LeanIMT vs SMT: Recreate Tree Browser](images/merkle_tree/recreate_tree_browser.webp)
+
+### 128 - 2048 credentials
+
+- Generate Merkle Proof (both): ~5 ms
+- Non-Membership ZK Proofs (SMT): 446-590 ms
+- Membership ZK Proofs (LeanIMT): 337-433 ms
+
+### LeanIMT 10K - 1M credentials
+
+- Generate Merkle Proof: ~5 ms
+- Membership ZK Proofs: 382-477 ms
+
+### Node.js Benchmarks
+
+![LeanIMT vs SMT: Insert Function Node.js](images/merkle_tree/insert_node.webp)
+
+- ZK Proof verification is constant at roughly 9 ms across all depths.
+
+### Smart Contract Benchmarks
+
+- Insert 100 leaves into the tree.
+- Verify one ZK proof with a tree of 10 leaves.
+
+### Function Gas Costs
+
+| Operation       | LeanIMT (gas) | SMT (gas) |
+| --------------- | ------------- | --------- |
+| Insert          | 181,006       | 1,006,644 |
+| Verify ZK Proof | 224,832       | 224,944   |
+
+
+### Deployment Costs
+
+| Contract       | LeanIMT (avg gas)        | SMT (avg gas)        |
+| -------------- | ------------------------ | -------------------- |
+| Bench Contract | 461,276                  | 436,824              |
+| Verifier       | 350,296                  | 349,864              |
+| Library        | 3,695,103 _(PoseidonT3)_ | 1,698,525 _(SmtLib)_ |
 
 ### Overall Assessment
 
-* From the benchmarks, membership proofs (LeanIMT) are faster to compute than non-membership proofs (SMT). 
-
-   * Insert: LeanIMT is 8.5 times faster than SMT
-   * Update: LeanIMT is 3.8 times faster than SMT
-   * Generate Proof: LeanIMT is 326 times faster than SMT
-   * Verify Proof: LeanIMT is 1.8 times faster than SMT
-
-* When revocations are rare, it is often more efficient to use an SMT over revoked credentials. When revocations are frequent, and the number of valid credentials is equal to or smaller than the number of revoked credentials, it can be more efficient to use a LeanIMT over the valid credentials.
-
-* At every tree depth, SMT has between ~1,560 and ~1,710 more constraints than LeanIMT. While the absolute difference grows slowly with depth, the relative ratio decreases: for small depths, SMT can have over 4x more constraints, but by depth 32 it is only about 1.22x more. This shows that LeanIMT provides a large relative improvement for small trees, while still maintaining an absolute advantage for larger trees.
-
-* The optimal choice between LeanIMT and SMT depends on the expected revocation frequency and the relative sizes of valid versus revoked credential sets.
+- Membership proofs are faster to compute than non-membership proofs.
+- Overall, LeanIMT offers better performance for membership proofs and client-side use cases, while SMT remains the preferred option when non-membership proofs are required.
+- LeanIMT insertions are significantly faster than SMT insertions when evaluated at the same number of leaves. However, in practical deployments LeanIMT often manages hundreds of thousands or even millions of credentials, whereas an SMT typically stores only hundreds or thousands of revoked credentials. Owing to its substantially smaller tree size, the SMT can therefore appear faster in practice, particularly when rebuilding the tree or performing insertions.
+- Since revoked credentials are usually far fewer than valid ones, non-membership proofs over a list of revoked credentials are often more efficient in practice.
