@@ -639,9 +639,9 @@ Constant at ~2.9 kB for both.
 
 | Members   | Recreate Tree Time |
 | --------- | ------------------ |
-| 10 000    | 1.2 s              |
-| 100 000   | 11.9 s             |
-| 1 000 000 | 1 m 59.9 s         |
+| 10,000    | 1.2 s              |
+| 100,000   | 11.9 s             |
+| 1,000,000 | 1 m 59.9 s         |
 
 ![LeanIMT vs SMT: Recreate Tree Browser](images/merkle_tree/recreate_tree_browser.png)
 
