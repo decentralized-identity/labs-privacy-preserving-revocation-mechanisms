@@ -536,7 +536,6 @@ In conclusion, the **VB accumulator demonstrates superior practical performance*
 This section compares two prominent Merkle tree-based schemes, LeanIMT and SMT. Merkle tree revocation approaches differ depending on whether they prove membership in a list of valid credentials or non-membership in a list of revoked credentials. LeanIMT is optimized for efficient membership proofs, whereas SMT enables efficient non-membership proofs at the cost of higher constraint complexity.
 Both approaches are typically implemented with Circom + SnarkJS, most commonly with Groth16 as the proving system. These Merkle proofs are also compatible with other proving systems such as Plonk, Fflonk, and UltraHonk, which ensure fast client-side proof generation and low-cost smart contract verification. Since Groth16 is commonly used, these methods require a trusted setup per circuit.
 
-
 ### Comparison Criteria
 
 * **Computational Performance:** The latency and throughput of tree operations including insert, proof generation, and proof verification.
