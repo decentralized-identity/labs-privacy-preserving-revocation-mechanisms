@@ -576,7 +576,7 @@ Benchmark code is available at: https://github.com/vplasencia/vc-revocation-benc
 
 ### Theoretical Evaluation
 
-### Time Complexity
+#### Time Complexity
 
 
 | Operation             | LeanIMT                                                                | SMT                                      |
@@ -587,7 +587,7 @@ Benchmark code is available at: https://github.com/vplasencia/vc-revocation-benc
 | Verify Merkle Proof   | $O(\log n)$                                                            | $O(\log n)$                              |
 | Search                | $O(n)$ - requires scanning all leaves <br> $O(1)$ - if index is cached | $O(\log n)$ - guided traversal using key |
 
-### Space Complexity
+#### Space Complexity
 
 | Structure | Complexity | Notation                         |
 | --------- | ---------- | -------------------------------- |
@@ -596,9 +596,9 @@ Benchmark code is available at: https://github.com/vplasencia/vc-revocation-benc
 
 ### Benchmark Results: LeanIMT vs SMT
 
-### Circuit Benchmarks
+#### Circuit Benchmarks
 
-### Number of Non-linear Constraints
+##### Number of Non-linear Constraints
 
 Fewer constraints indicate a more efficient circuit.
 
@@ -606,28 +606,28 @@ Fewer constraints indicate a more efficient circuit.
 
 ![Relative Efficiency: Ratio of Constraints](images/merkle_tree/constraints_ratio.png)
 
-### Proof Size
+##### Proof Size
 
 Groth16 Proof Size is always fixed, independent of circuit size: ~ 805 bytes (in JSON format).
 
-### ZK Artifact Size
+##### ZK Artifact Size
 
-#### WASM File Size
+###### WASM File Size
 - SMT ≈ 2.2-2.3 MB
 - LeanIMT ≈ 1.8 MB
 
-#### ZKEY File Size
+###### ZKEY File Size
 From tree depth 2 to 32:
  
 - SMT: grows from 1.4 MB to 5.9 MB.
 - LeanIMT: grows from 280 kB to 4.4 MB.
 
-#### Verification Key JSON File Size
+###### Verification Key JSON File Size
 Constant at ~2.9 kB for both.
 
-### Browser Benchmarks
+#### Browser Benchmarks
 
-### Recreate Tree
+##### Recreate Tree
 
 | Members | SMT Time | LeanIMT Time |
 | ------- | -------- | ------------ |
@@ -636,7 +636,7 @@ Constant at ~2.9 kB for both.
 | 1024    | 2.1 s    | 139.2 ms     |
 | 2048    | 4.6 s    | 273.0 ms     |
 
-### LeanIMT Performance
+###### LeanIMT Performance
 
 | Members   | Recreate Tree Time |
 | --------- | ------------------ |
@@ -646,29 +646,29 @@ Constant at ~2.9 kB for both.
 
 ![LeanIMT vs SMT: Recreate Tree Browser](images/merkle_tree/recreate_tree_browser.png)
 
-### 128 - 2048 credentials
+##### 128 - 2048 credentials
 
 - Generate Merkle Proof (both): ~5 ms
 - Non-Membership ZK Proofs (SMT): 446-590 ms
 - Membership ZK Proofs (LeanIMT): 337-433 ms
 
-### LeanIMT 10K - 1M credentials
+##### LeanIMT 10K - 1M credentials
 
 - Generate Merkle Proof: ~5 ms
 - Membership ZK Proofs: 382-477 ms
 
-### Node.js Benchmarks
+#### Node.js Benchmarks
 
 ![LeanIMT vs SMT: Insert Function Node.js](images/merkle_tree/insert_node.png)
 
 - ZK Proof verification is constant at roughly 9 ms across all depths.
 
-### Smart Contract Benchmarks
+#### Smart Contract Benchmarks
 
 - Insert 100 leaves into the tree.
 - Verify one ZK proof with a tree of 10 leaves.
 
-### Function Gas Costs
+##### Function Gas Costs
 
 | Operation       | LeanIMT (gas) | SMT (gas) |
 | --------------- | ------------- | --------- |
@@ -676,7 +676,7 @@ Constant at ~2.9 kB for both.
 | Verify ZK Proof | 224,832       | 224,944   |
 
 
-### Deployment Costs
+##### Deployment Costs
 
 | Contract       | LeanIMT (avg gas)        | SMT (avg gas)        |
 | -------------- | ------------------------ | -------------------- |
