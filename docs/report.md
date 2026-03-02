@@ -635,7 +635,7 @@ Constant at ~2.9 kB for both.
 | 1024    | 2.1 s    | 139.2 ms     |
 | 2048    | 4.6 s    | 273.0 ms     |
 
-###### LeanIMT Performance
+##### LeanIMT Performance
 
 | Members   | Recreate Tree Time |
 | --------- | ------------------ |
