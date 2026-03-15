@@ -647,13 +647,13 @@ Constant at ~2.9 kB for both.
 
 ![LeanIMT vs SMT: Recreate Tree Browser](images/merkle_tree/recreate_tree_browser.png)
 
-##### 128 - 2048 credentials
+##### LeanIMT vs SMT (128 - 2048 credentials)
 
 - Generate Merkle Proof (both): ~5 ms
 - Non-Membership ZK Proofs (SMT): 446-590 ms
 - Membership ZK Proofs (LeanIMT): 337-433 ms
 
-##### LeanIMT 10K - 1M credentials
+##### LeanIMT (10K - 1M credentials)
 
 - Generate Merkle Proof: ~5 ms
 - Membership ZK Proofs: 382-477 ms
