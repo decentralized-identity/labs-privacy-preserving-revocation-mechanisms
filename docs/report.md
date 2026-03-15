@@ -643,6 +643,8 @@ Constant at ~2.9 kB for both.
 | 100,000   | 11.9 s             |
 | 1,000,000 | 1 m 59.9 s         |
 
+<a id="chart-recreate-tree-browser"></a>
+
 ![LeanIMT vs SMT: Recreate Tree Browser](images/merkle_tree/recreate_tree_browser.png)
 
 ##### 128 - 2048 credentials
@@ -657,6 +659,8 @@ Constant at ~2.9 kB for both.
 - Membership ZK Proofs: 382-477 ms
 
 #### Node.js Benchmarks
+
+<a id="chart-insert-function-nodejs"></a>
 
 ![LeanIMT vs SMT: Insert Function Node.js](images/merkle_tree/insert_node.png)
 
@@ -687,5 +691,5 @@ Constant at ~2.9 kB for both.
 
 - Membership proofs are faster to compute than non-membership proofs.
 - Overall, LeanIMT offers better performance for membership proofs and client-side use cases, while SMT remains the preferred option when non-membership proofs are required.
-- LeanIMT insertions are significantly faster than SMT insertions when evaluated at the same number of leaves. However, in practical deployments LeanIMT often manages hundreds of thousands or even millions of credentials, whereas an SMT typically stores only hundreds or thousands of revoked credentials. Owing to its substantially smaller tree size, the SMT can therefore appear faster in practice, particularly when rebuilding the tree or performing insertions.
+- LeanIMT insertions are significantly faster than SMT insertions when evaluated at the same number of leaves. However, in practical deployments LeanIMT often manages hundreds of thousands or even millions of credentials, whereas an SMT typically stores only hundreds or thousands of revoked credentials. Owing to its substantially smaller tree size, the SMT can therefore appear faster in practice, particularly when rebuilding the tree or performing insertions (see [LeanIMT vs SMT: Recreate Tree Browser](#chart-recreate-tree-browser) and [LeanIMT vs SMT: Insert Function](#chart-insert-function-nodejs) charts).
 - Since revoked credentials are usually far fewer than valid ones, non-membership proofs over a list of revoked credentials are often more efficient in practice.
