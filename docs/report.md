@@ -6,15 +6,15 @@
 
 **Editors:**
 
-~ [Kai Otsuki](https://www.linkedin.com/in/kai-otsuki-9475a8303) ([GitHub](https://github.com/Dtitkaio))
+~ [Kai Otsuki](https://www.linkedin.com/in/kai-otsuki-9475a8303)
 
 **Authors:**
 
-~ [Kai Otsuki](https://www.linkedin.com/in/kai-otsuki-9475a8303) ([GitHub](https://github.com/Dtitkaio))
+~ [Kai Otsuki](https://www.linkedin.com/in/kai-otsuki-9475a8303) (NTT)
 
-~ [Vivian Plasencia](https://github.com/vplasencia) (Ethereum Foundation)
+~ Vivian Plasencia (Ethereum Foundation)
 
-~ [Ken Watanabe](https://github.com/dorakemon)
+~ Ken Watanabe
 
 **Participate:**
 
