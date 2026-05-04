@@ -1,5 +1,31 @@
 # [WIP] An Analysis of Revocation Schemes for Verifiable Credentials
 
+**Specification Status:** [Draft](https://github.com/decentralized-identity/org/blob/master/work-item-lifecycle.md)
+
+**Latest Draft:** [identity.foundation/labs-privacy-preserving-revocation-mechanisms](https://identity.foundation/labs-privacy-preserving-revocation-mechanisms)
+
+**Editors:**
+
+~ [Kai Otsuki](https://www.linkedin.com/in/kai-otsuki-9475a8303) ([GitHub](https://github.com/Dtitkaio))
+
+**Authors:**
+
+~ [Kai Otsuki](https://www.linkedin.com/in/kai-otsuki-9475a8303) ([GitHub](https://github.com/Dtitkaio))
+~ [Vivian Plasencia](https://github.com/vplasencia) (Ethereum Foundation)
+~ [Ken Watanabe](https://github.com/dorakemon)
+
+**Participate:**
+
+~ [GitHub repo](https://github.com/decentralized-identity/labs-privacy-preserving-revocation-mechanisms)
+
+~ [File a bug](https://github.com/decentralized-identity/labs-privacy-preserving-revocation-mechanisms/issues)
+
+~ [Commit history](https://github.com/decentralized-identity/labs-privacy-preserving-revocation-mechanisms/commits/main)
+
+Except where otherwise noted, this work by the [Decentralized Identity Foundation](https://identity.foundation/) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0).
+
+---
+
 This report provides a detailed technical analysis of prominent revocation schemes for Verifiable Credentials (VCs). We examine each scheme’s specifications, implementations, and privacy properties. The primary objective is to delineate each scheme’s pros and cons, and identify core use cases and recommend the most suitable revocation scheme for each.
 
 ## Reading Guide and Agenda
