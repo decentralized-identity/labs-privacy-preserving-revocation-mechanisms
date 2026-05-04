@@ -1,4 +1,3 @@
-
 # [WIP] An Analysis of Revocation Schemes for Verifiable Credentials
 
 This report provides a detailed technical analysis of prominent revocation schemes for Verifiable Credentials (VCs). We examine each scheme’s specifications, implementations, and privacy properties. The primary objective is to delineate each scheme’s pros and cons, and identify core use cases and recommend the most suitable revocation scheme for each.
@@ -11,11 +10,11 @@ This report is organized into two complementary analytical layers:
 
 Readers may approach the document linearly or jump directly to sections of interest:
 
-### 1. Privacy and Threat Model
+1. Privacy and Threat Model
 - **[Linkability and Privacy Risks](#linkablity)**  
   Introduces RP–RP and AP–RP linkability, revocation-induced linkability, herd privacy, and privacy requirements.
 
-### 2. Revocation Design Space
+2. Revocation Design Space
 - **[The Need for Revocation](#the-need-for-revocation-in-verifiable-credentials)**  
   Describes revocation motivations, stakeholders, and scenarios.
 - **[Classification Axes for Revocation Mechanisms](#classification-axes-for-revocation-mechanisms)**  
@@ -23,11 +22,11 @@ Readers may approach the document linearly or jump directly to sections of inter
 - **[Overview of Revocation Mechanisms](#overview-of-revocation-mechanisms)**  
   Provides a high-level overview of major revocation approaches, including bitstring-based lists, accumulators, Merkle trees, range proofs, and short-lived credentials.
 
-### 3. Cross-Scheme Performance Comparison
+3. Cross-Scheme Performance Comparison
 - **[Performance Evaluation of Revocation Schemes](#performance-evaluation-of-revocation-schemes)**  
   Compares different revocation schemes across computational cost, communication overhead, scalability, and deployment scenarios, and provides practical recommendations.
 
-### 4. Deep-Dive Analyses
+4. Deep-Dive Analyses
 - **[Comparative Analysis of Accumulator-based Schemes](#comparative-analysis-of-accumulator-based-schemes)**  
   Presents a detailed comparison of pairing-based accumulators (VB20 vs. KB21), including asymptotic complexity and empirical benchmarks.
 - **[Comparative Analysis of Merkle Tree-based Schemes](#comparative-analysis-of-merkle-tree-based-schemes)**  
