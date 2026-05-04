@@ -21,6 +21,14 @@ jobs:
           node -e "require('spec-up')({ nowatch: true })"
           rm -rf node_modules
 
+      - name: Copy images to site root
+        # spec-up renders index.html at the repo root but preserves image
+        # paths from the markdown source (e.g. `images/foo.png`), which are
+        # relative to docs/report.md. Copying docs/images/ to ./images/ makes
+        # those paths resolve correctly on the deployed site without breaking
+        # GitHub's rendering of the markdown source.
+        run: cp -R docs/images images
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3.7.3
         with:
