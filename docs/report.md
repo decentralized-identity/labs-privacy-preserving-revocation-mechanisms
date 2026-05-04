@@ -11,7 +11,9 @@
 **Authors:**
 
 ~ [Kai Otsuki](https://www.linkedin.com/in/kai-otsuki-9475a8303) ([GitHub](https://github.com/Dtitkaio))
+
 ~ [Vivian Plasencia](https://github.com/vplasencia) (Ethereum Foundation)
+
 ~ [Ken Watanabe](https://github.com/dorakemon)
 
 **Participate:**
